@@ -14,13 +14,13 @@
 package ru.ratanov.tv
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 
 /**
  * This class demonstrates how to extend [android.support.v17.leanback.app.ErrorFragment].
  */
-class ErrorFragment : android.support.v17.leanback.app.ErrorFragment() {
+class ErrorFragment : androidx.leanback.app.ErrorFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
