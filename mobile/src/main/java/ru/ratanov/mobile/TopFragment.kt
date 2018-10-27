@@ -5,14 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_top.*
-import kotlinx.android.synthetic.main.fragment_top.view.*
-import kotlinx.android.synthetic.main.recycler_view.*
 import kotlinx.android.synthetic.main.recycler_view.view.*
-import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import ru.ratanov.core.repo.FilmRepository

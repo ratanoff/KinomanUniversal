@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.transition.ChangeBounds
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 
 
@@ -18,10 +19,15 @@ class DetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
-        view.tvName.text = "Hello, ${arguments?.getString("name")}"
 
-        sharedElementEnterTransition = ChangeBounds().apply { duration = 750 }
-        sharedElementReturnTransition = ChangeBounds().apply { duration = 750 }
+        sharedElementEnterTransition = ChangeBounds().apply { duration = 200 }
+        sharedElementReturnTransition = ChangeBounds().apply { duration = 200 }
+
+
+        arguments?.getString("poster_url")?.let {
+            view.poster.transitionName = it
+            Picasso.get().load(it).into(view.poster)
+        }
 
         return view
     }
