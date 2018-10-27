@@ -15,10 +15,10 @@
 package ru.ratanov.tv
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 
 /** Loads [PlaybackVideoFragment]. */
-class PlaybackActivity : FragmentActivity() {
+class PlaybackActivity : androidx.fragment.app.FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
