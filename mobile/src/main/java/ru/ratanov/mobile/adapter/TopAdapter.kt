@@ -9,10 +9,13 @@ import com.squareup.picasso.Picasso
 import ru.ratanov.core.model.TopFilm
 import ru.ratanov.mobile.view.TopItemView
 
-class TopAdapter(val context: Context, val items: List<TopFilm>) : RecyclerView.Adapter<TopViewHolder>() {
+
+class TopAdapter(private val context: Context, private val items: List<TopFilm>) :
+    RecyclerView.Adapter<TopViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopViewHolder {
-        return TopViewHolder(TopItemView(context))
+        val view = TopItemView(context)
+        return TopViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TopViewHolder, position: Int) {
@@ -21,8 +24,14 @@ class TopAdapter(val context: Context, val items: List<TopFilm>) : RecyclerView.
 
     override fun getItemCount() = items.size
 
+
+
 }
 
-class TopViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-    fun bindItem(url: String) = Picasso.get().load(url).into(itemView as? ImageView)
+class TopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bindItem(url: String) = Picasso.get()
+        .load(url)
+        .into(itemView as ImageView)
+
 }

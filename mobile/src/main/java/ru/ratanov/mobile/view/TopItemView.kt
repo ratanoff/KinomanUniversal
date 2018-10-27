@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 
 class TopItemView(context: Context) : ImageView(context) {
 
-    private val SPANS_COUNT = 2
+    private val SPANS_COUNT = 3
     private val PADDING = 1
 
     init {
@@ -24,8 +24,8 @@ class TopItemView(context: Context) : ImageView(context) {
         val preferredWidth = (parentWidth / SPANS_COUNT) - PADDING * 2
         val preferredHeight = (preferredWidth * 1.5).toInt()
 
-        val width = View.MeasureSpec.makeMeasureSpec(preferredHeight, View.MeasureSpec.EXACTLY)
-        val height = View.MeasureSpec.makeMeasureSpec(preferredHeight, View.MeasureSpec.EXACTLY)
+        val width = MeasureSpec.makeMeasureSpec(preferredWidth, MeasureSpec.EXACTLY)
+        val height = MeasureSpec.makeMeasureSpec(preferredHeight, MeasureSpec.EXACTLY)
 
         setMeasuredDimension(width, height)
     }

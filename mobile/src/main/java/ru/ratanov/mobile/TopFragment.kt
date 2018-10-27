@@ -25,7 +25,7 @@ class TopFragment : Fragment() {
         val view =  inflater.inflate(R.layout.recycler_view, container, false)
 
         with(view.recyclerView) {
-            layoutManager = GridLayoutManager(inflater.context, 2)
+            layoutManager = GridLayoutManager(inflater.context, 3)
             setHasFixedSize(true)
             doAsync {
                 val items = FilmRepository.getTopFilms()
