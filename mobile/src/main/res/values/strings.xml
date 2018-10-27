@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Kinoman mobile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="top_fragment_title">TopFragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="detail_fragment_title">Detail fragment</string>
 </resources>
