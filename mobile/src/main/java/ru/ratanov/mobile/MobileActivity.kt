@@ -6,14 +6,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
 
-class MobileActivity : AppCompatActivity(), NavHost {
+class MobileActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mobile)
 
-
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.content, TopFragment.newInstance())
+            .commit()
     }
 
     override fun onBackPressed() {
@@ -24,12 +27,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
 //        System.exit(0)
     }
 
-    override fun getNavController(): NavController {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun onSupportNavigateUp() =
-            findNavController(R.id.my_nav_host_fragment).navigateUp()
 
 
 
