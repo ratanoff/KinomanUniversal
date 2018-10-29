@@ -47,7 +47,7 @@ class TopFragment : Fragment(), TopPosterClickListener {
             .fromJson<List<TopFilm>>(rd, object : TypeToken<List<TopFilm>>() {}.type)
 
         with(view.recyclerView) {
-            layoutManager = GridLayoutManager(view.context, 2)
+            layoutManager = GridLayoutManager(view.context, 3)
             setHasFixedSize(true)
             adapter = TopAdapter(items, this@TopFragment)
 //            doAsync {

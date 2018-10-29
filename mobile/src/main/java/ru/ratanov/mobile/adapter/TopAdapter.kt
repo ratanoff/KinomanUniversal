@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.ratanov.core.model.TopFilm
 import ru.ratanov.mobile.R
+import ru.ratanov.mobile.view.TopItemView
 
 
 class TopAdapter(private val items: List<TopFilm>, private val topPosterClickListener: TopPosterClickListener) :
     RecyclerView.Adapter<TopAdapter.TopViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopViewHolder {
-        return TopViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.top_item_view, parent, false))
+        return TopViewHolder(TopItemView(parent.context))
     }
 
     override fun onBindViewHolder(holder: TopViewHolder, position: Int) {
@@ -23,24 +23,20 @@ class TopAdapter(private val items: List<TopFilm>, private val topPosterClickLis
 
         Picasso.get()
             .load(posterUrl)
-            .into(holder.posterView)
+            .into(holder.itemView as ImageView)
 
-        holder.posterView.transitionName = posterUrl
+        holder.itemView.transitionName = posterUrl
 
         holder.itemView.setOnClickListener {
-            topPosterClickListener.onTopPosterClick(posterUrl, holder.posterView)
+            topPosterClickListener.onTopPosterClick(posterUrl, holder.itemView)
         }
     }
 
     override fun getItemCount() = items.size
 
-    class TopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class TopViewHolder(val posterView: ImageView) : RecyclerView.ViewHolder(posterView) {
 
-        val posterView: ImageView
 
-        init {
-            posterView = itemView.findViewById<View>(R.id.item_animal_square_image) as ImageView
-        }
 
 
     }
