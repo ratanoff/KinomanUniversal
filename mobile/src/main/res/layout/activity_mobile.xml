@@ -7,10 +7,14 @@
         android:layout_height="match_parent"
         tools:context=".MobileActivity">
 
-    <FrameLayout
+    <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/content"/>
+            android:id="@+id/my_nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"/>
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"

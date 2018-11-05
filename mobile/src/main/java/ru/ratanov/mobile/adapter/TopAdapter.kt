@@ -1,13 +1,10 @@
 package ru.ratanov.mobile.adapter
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.ratanov.core.model.TopFilm
-import ru.ratanov.mobile.R
 import ru.ratanov.mobile.view.TopItemView
 
 
@@ -35,9 +32,6 @@ class TopAdapter(private val items: List<TopFilm>, private val topPosterClickLis
     override fun getItemCount() = items.size
 
     class TopViewHolder(val posterView: ImageView) : RecyclerView.ViewHolder(posterView) {
-
-
-
 
     }
 
