@@ -9,22 +9,16 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import ru.ratanov.mobile.R
+import ru.ratanov.mobile.view.base.BaseFragment
 
 
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_detail, container, false)
-    }
+    override fun getLayout() = R.layout.fragment_detail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showLoading()
 
         arguments?.getString("extra_poster_url")?.let {
             Picasso.get().load(it).into(view.poster)

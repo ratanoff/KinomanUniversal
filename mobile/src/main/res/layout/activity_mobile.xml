@@ -7,14 +7,29 @@
         android:layout_height="match_parent"
         tools:context=".MobileActivity">
 
-    <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/my_nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            app:navGraph="@navigation/nav_graph"
-            app:defaultNavHost="true"/>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
+        <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/my_nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/nav_graph"
+                app:defaultNavHost="true"/>
+
+        <!--<ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/progress_bg"
+                android:visibility="invisible"/>-->
+
+        <ru.ratanov.mobile.view.ProgressWidget
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </FrameLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
