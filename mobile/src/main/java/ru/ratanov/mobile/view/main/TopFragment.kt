@@ -16,13 +16,12 @@ import ru.ratanov.core.repo.FilmRepository
 import ru.ratanov.mobile.R
 import ru.ratanov.mobile.adapter.TopAdapter
 import ru.ratanov.mobile.adapter.TopPosterClickListener
+import ru.ratanov.mobile.view.base.BaseFragment
 
 
-class TopFragment : Fragment(), TopPosterClickListener {
+class TopFragment : BaseFragment(), TopPosterClickListener {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.recycler_view, container, false)
-    }
+    override fun getLayout() = R.layout.recycler_view
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +32,12 @@ class TopFragment : Fragment(), TopPosterClickListener {
             setHasFixedSize(true)
             doAsync {
                 val items = FilmRepository.getTopFilms()
-                uiThread { items?.let { adapter = TopAdapter(it, this@TopFragment) } }
+                uiThread {
+                    items?.let {
+                        adapter = TopAdapter(it, this@TopFragment)
+                        hideLoading()
+                    }
+                }
             }
         }
     }
@@ -44,5 +48,6 @@ class TopFragment : Fragment(), TopPosterClickListener {
             bundleOf("extra_poster_url" to posterUrl)
         )
     }
+
 
 }
