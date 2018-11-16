@@ -56,4 +56,7 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Search
+    implementation 'com.lapism:searchview:4.0'
+
 }
