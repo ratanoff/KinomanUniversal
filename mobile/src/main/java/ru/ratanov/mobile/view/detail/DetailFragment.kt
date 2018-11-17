@@ -18,10 +18,12 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading()
+//        showLoading()
+        hideLoading()
 
         arguments?.getString("extra_poster_url")?.let {
             Picasso.get().load(it).into(view.poster)
+            hideLoading()
         }
     }
 
