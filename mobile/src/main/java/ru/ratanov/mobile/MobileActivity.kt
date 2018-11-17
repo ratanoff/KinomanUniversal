@@ -8,14 +8,14 @@ import androidx.navigation.NavHost
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.lapism.searchview.SearchAdapter
-import com.lapism.searchview.SearchItem
-import com.lapism.searchview.SearchView
-import com.lapism.searchview.SearchView.OnOpenCloseListener
 import kotlinx.android.synthetic.main.activity_mobile.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import ru.ratanov.core.repo.FilmRepository
+import ru.ratanov.search.SearchAdapter
+import ru.ratanov.search.SearchItem
+import ru.ratanov.search.SearchView
 
 
 class MobileActivity : AppCompatActivity(), NavHost {
@@ -49,8 +49,9 @@ class MobileActivity : AppCompatActivity(), NavHost {
         super.onBackPressed()
 
         //todo Check if start screen -> exit
-//        finishAffinity()
-//        System.exit(0)
+        if (navController.currentDestination?.id == navController.graph.startDestination) {
+            toast("Нажмите ещё раз для выхода")
+        }
     }
 
 
@@ -59,7 +60,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
             version = SearchView.VERSION_MENU_ITEM
             setVersionMargins(SearchView.VERSION_MARGINS_MENU_ITEM)
             setTheme(SearchView.THEME_LIGHT)
-            setOnOpenCloseListener(object : OnOpenCloseListener {
+            setOnOpenCloseListener(object : SearchView.OnOpenCloseListener {
                 override fun onOpen(): Boolean {
                     fab.hide()
                     return true
