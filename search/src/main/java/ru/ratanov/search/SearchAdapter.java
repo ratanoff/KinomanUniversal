@@ -15,6 +15,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,10 +157,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
         SearchItem item = mResultList.get(position);
 
-        viewHolder.icon_left.setImageResource(item.get_icon());
-        viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+
         viewHolder.text.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
         viewHolder.text.setTextColor(SearchView.getTextColor());
+
+        if (item.getPosterUrl() != null) {
+            Picasso.get().load(item.getPosterUrl()).into(viewHolder.icon_left);
+        } else {
+            viewHolder.icon_left.setImageResource(item.get_icon());
+            viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+        }
 
         String itemText = item.get_text().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());

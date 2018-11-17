@@ -18,6 +18,7 @@ public class SearchItem implements Parcelable {
     };
     private int icon;
     private CharSequence text;
+    private String posterUrl;
 
     public SearchItem() {
     }
@@ -29,6 +30,11 @@ public class SearchItem implements Parcelable {
     public SearchItem(int icon, CharSequence text) {
         this.icon = icon;
         this.text = text;
+    }
+
+    public SearchItem(CharSequence text, String posterUrl) {
+        this.text = text;
+        this.posterUrl = posterUrl;
     }
 
     public SearchItem(Parcel in) {
@@ -50,6 +56,14 @@ public class SearchItem implements Parcelable {
 
     public void set_text(CharSequence text) {
         this.text = text;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 
     @Override

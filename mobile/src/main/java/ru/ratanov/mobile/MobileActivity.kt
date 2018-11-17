@@ -74,7 +74,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
             })
 
             doAsync {
-                val suggestion = FilmRepository.getTopFilms()?.map { SearchItem(it.title) }
+                val suggestion = FilmRepository.getTopFilms()?.map { SearchItem(it.title, it.posterUrl) }
                 uiThread {
                     adapter = SearchAdapter(this@MobileActivity, suggestion)
                 }
