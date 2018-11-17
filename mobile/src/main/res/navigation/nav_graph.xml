@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nav_graph.xml" app:startDestination="@id/topFragment">
+            android:id="@+id/nav_graph.xml" app:startDestination="@id/tabsFragment">
 
     <fragment android:id="@+id/topFragment" android:name="ru.ratanov.mobile.view.main.TopFragment"
               android:label="TopFragment">
@@ -14,5 +14,14 @@
     <fragment android:id="@+id/detailFragment" android:name="ru.ratanov.mobile.view.detail.DetailFragment"
               android:label="DetailFragment">
         <argument android:name="posterUrl" app:argType="string"/>
+    </fragment>
+    <fragment android:id="@+id/tabsFragment" android:name="ru.ratanov.mobile.view.main.tabs.TabsFragment"
+              android:label="TabsFragment">
+        <action android:id="@+id/action_topFragment_to_detailFragment" app:destination="@id/detailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 </navigation>

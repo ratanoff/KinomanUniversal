@@ -27,7 +27,13 @@ class TopFragment : BaseFragment(), TopPosterClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         with(view.recyclerView) {
+            if (adapter != null) {
+                hideLoading()
+                return@with
+            }
+
             layoutManager = GridLayoutManager(view.context, 3)
             setHasFixedSize(true)
             doAsync {
