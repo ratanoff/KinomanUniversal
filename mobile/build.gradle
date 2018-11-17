@@ -36,6 +36,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     implementation project(':core')
+    implementation project(':search')
 
 
     // Material
@@ -55,5 +56,8 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Search
+//    implementation 'com.lapism:searchview:4.0'
 
 }

@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".MobileActivity">
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
@@ -17,19 +18,18 @@
                 app:navGraph="@navigation/nav_graph"
                 app:defaultNavHost="true"/>
 
-        <!--<ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/progress_bg"
-                android:visibility="invisible"/>-->
-
         <ru.ratanov.mobile.view.ProgressWidget
                 android:id="@+id/progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
     </FrameLayout>
+
+    <ru.ratanov.search.SearchView
+            android:id="@+id/searchview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="ru.ratanov.search.SearchBehavior"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
@@ -44,8 +44,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchorGravity=""
-            android:src="@drawable/ic_add_white_24dp"
+            android:src="@drawable/ic_search_white_24dp"
             app:layout_anchor="@id/bottomAppBar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
