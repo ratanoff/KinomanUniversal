@@ -1,6 +1,8 @@
 package ru.ratanov.mobile
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -13,6 +15,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import ru.ratanov.core.repo.FilmRepository
+import ru.ratanov.mobile.view.main.bottomsheet.FilterFragment
 import ru.ratanov.search.SearchAdapter
 import ru.ratanov.search.SearchItem
 import ru.ratanov.search.SearchView
@@ -32,6 +35,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mobile)
 
+        setSupportActionBar(bottomAppBar)
         setupSearchView()
 
 //        NavigationUI.setupWithNavController(toolbar, navController)
@@ -52,6 +56,22 @@ class MobileActivity : AppCompatActivity(), NavHost {
         if (navController.currentDestination?.id == navController.graph.startDestination) {
             toast("Нажмите ещё раз для выхода")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bottomappbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_filter -> {
+                val filterFragment = FilterFragment()
+                filterFragment.show(supportFragmentManager, filterFragment.tag)
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
