@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/list_divider"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_normal"
+            android:showDividers="middle">
+
+        <ru.ratanov.mobile.widget.CollapsibleCard
+                android:id="@+id/directions_parking_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardDescription="@string/filter_category_description"
+                app:cardTitle="@string/filter_category_title" />
+
+        <ru.ratanov.mobile.widget.CollapsibleCard
+                android:id="@+id/shuttle_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardDescription="@string/filter_year_description"
+                app:cardTitle="@string/filter_year_title" />
+
+        <ru.ratanov.mobile.widget.CollapsibleCard
+                android:id="@+id/public_transportation_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardDescription="@string/filter_country_description"
+                app:cardTitle="@string/filter_country_title" />
+
+        <ru.ratanov.mobile.widget.CollapsibleCard
+                android:id="@+id/biking_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardDescription="@string/filter_added_description"
+                app:cardTitle="@string/filter_added_title" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

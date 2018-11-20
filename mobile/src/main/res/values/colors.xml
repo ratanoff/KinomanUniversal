@@ -6,4 +6,10 @@
 
     <color name="progress_color">#009688</color>
     <color name="progress_bg">#63FFFFFF</color>
+
+    <color name="light_grey">#e6e6e6</color>
+
+
+    <color name="filter_text_active">#212121</color>
+    <color name="filter_text_inactive">#4869fd</color> <!-- 90% indigo -->
 </resources>
