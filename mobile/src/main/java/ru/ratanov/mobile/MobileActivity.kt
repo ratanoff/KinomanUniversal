@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_mobile.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
+import ru.ratanov.core.model.Filter
 import ru.ratanov.core.repo.FilmRepository
 import ru.ratanov.mobile.view.main.bottomsheet.FilterFragment
 import ru.ratanov.search.SearchAdapter
@@ -22,6 +23,9 @@ import ru.ratanov.search.SearchView
 
 
 class MobileActivity : AppCompatActivity(), NavHost {
+
+    private lateinit var filters: List<Filter>
+
     override fun getNavController(): NavController {
         return Navigation.findNavController(this, R.id.my_nav_host_fragment)
     }
@@ -37,6 +41,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
 
         setSupportActionBar(bottomAppBar)
         setupSearchView()
+        initFilters()
 
 //        NavigationUI.setupWithNavController(toolbar, navController)
 
@@ -66,7 +71,7 @@ class MobileActivity : AppCompatActivity(), NavHost {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_filter -> {
-                val filterFragment = FilterFragment()
+                val filterFragment = FilterFragment.newInstance(filters)
                 filterFragment.show(supportFragmentManager, filterFragment.tag)
             }
 
@@ -103,5 +108,10 @@ class MobileActivity : AppCompatActivity(), NavHost {
         }
     }
 
+    private fun initFilters() {
+        doAsync {
+            filters = FilmRepository.getFilters()
+        }
+    }
 
 }
