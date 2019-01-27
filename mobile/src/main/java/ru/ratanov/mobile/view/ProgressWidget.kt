@@ -1,39 +1,31 @@
 package ru.ratanov.mobile.view
 
-import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
-import ru.ratanov.mobile.R
+import org.jetbrains.anko.windowManager
 
 class ProgressWidget : View {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    private val kinomanLogo: Drawable = context.resources.getDrawable(R.drawable.ic_progress_icon)
+    private val defaultDisplay = context.windowManager.defaultDisplay
+    private val screenSize = Point().apply { defaultDisplay.getSize(this) }
 
+    private val COLOR_START = Color.parseColor("#004487d6")
+    private val COLOR_END = Color.parseColor("#4487d6")
+    private val gradient = SweepGradient(screenSize.x / 2f, screenSize.y / 2f, COLOR_START, COLOR_END)
+    private val gradientMatrix = Matrix()
     private var startAngle = 0f
-    private var sweepAngle = 0f
-    private var offset = 20f
-
-
     private val rectF = RectF()
-    private val rectPaint = Paint().apply {
-        style = Paint.Style.STROKE
-        color = Color.RED
-    }
 
-    private val archPaint = Paint().apply {
+    private val arcPaint = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.STROKE
-        color = Color.WHITE
-        strokeWidth = 16f
+        strokeWidth = 5f
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -41,42 +33,27 @@ class ProgressWidget : View {
 
         canvas.drawARGB(200, 255, 255, 255)
 
+        val width = screenSize.x.toFloat()
+        val height = screenSize.y.toFloat()
+
         val size = width / 3
 
-        val left = (width - size) / 2
-        val top = (height - size) / 2
-        val right = left + size
-        val bottom = top + size
+        rectF.left = (width - size) / 2
+        rectF.top = (height - size) / 2
+        rectF.right = rectF.left + size
+        rectF.bottom = rectF.top + size
 
-        kinomanLogo.setBounds(left, top, right, bottom)
-        kinomanLogo.draw(canvas)
+        gradientMatrix.reset()
+        gradientMatrix.preRotate(-startAngle, width / 2, height / 2)
+        gradient.setLocalMatrix(gradientMatrix)
+        arcPaint.shader = gradient
 
-
-        rectF.left = left + offset
-        rectF.top = top + offset
-        rectF.right = right - offset
-        rectF.bottom = bottom - offset
-
-        canvas.drawArc(rectF, startAngle, sweepAngle, false, archPaint)
+        canvas.drawArc(rectF, 0f, 360f, true, arcPaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return true
-    }
 
-    private fun animateArch() {
-        val angle = ValueAnimator.ofFloat(30f, 330f, 30f).apply {
-            duration = 3000
-            interpolator = AccelerateDecelerateInterpolator()
-            repeatMode = ValueAnimator.RESTART
-            repeatCount = ValueAnimator.INFINITE
-            addUpdateListener {
-                sweepAngle = it.animatedValue as Float
-                invalidate()
-            }
-        }
-
-        val rotate = ValueAnimator.ofFloat(0f, 360f).apply {
+    private fun animateArc() {
+        ValueAnimator.ofFloat(360f, 0f).apply {
             duration = 800
             interpolator = LinearInterpolator()
             repeatMode = ValueAnimator.RESTART
@@ -85,16 +62,11 @@ class ProgressWidget : View {
                 startAngle = it.animatedValue as Float
                 invalidate()
             }
-        }
-
-        AnimatorSet().apply {
-            playTogether(angle, rotate)
-            start()
-        }
+        }.start()
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        animateArch()
+        animateArc()
     }
 }
