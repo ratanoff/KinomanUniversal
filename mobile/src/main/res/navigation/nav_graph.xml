@@ -13,7 +13,7 @@
     </fragment>
     <fragment android:id="@+id/detailFragment" android:name="ru.ratanov.mobile.view.detail.DetailFragment"
               android:label="DetailFragment">
-        <argument android:name="posterUrl" app:argType="string"/>
+        <argument android:name="filmUrl" app:argType="string"/>
     </fragment>
     <fragment android:id="@+id/tabsFragment" android:name="ru.ratanov.mobile.view.main.tabs.TabsFragment"
               android:label="TabsFragment">

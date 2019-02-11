@@ -1,6 +1,5 @@
 package ru.ratanov.mobile.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -23,10 +22,10 @@ class TopAdapter(private val items: List<TopFilm>, private val topPosterClickLis
             .load(posterUrl)
             .into(holder.itemView as ImageView)
 
-        holder.itemView.transitionName = posterUrl
+        val filmUrl = items[position].link
 
         holder.itemView.setOnClickListener {
-            topPosterClickListener.onTopPosterClick(posterUrl, holder.itemView)
+            topPosterClickListener.onTopPosterClick(filmUrl)
         }
     }
 
