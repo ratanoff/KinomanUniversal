@@ -25,7 +25,7 @@ class DetailFragment : BaseFragment() {
             doAsync {
                 val posterUrl = FilmRepository.getPoster(it)
                 uiThread {
-                    Picasso.get().load(posterUrl).into(view.poster)
+                    Picasso.get().load(posterUrl).into(view.toolbar_image)
                     hideLoading()
                 }
             }
