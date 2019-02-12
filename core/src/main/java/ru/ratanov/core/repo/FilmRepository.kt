@@ -5,8 +5,10 @@ import com.google.gson.reflect.TypeToken
 import ru.ratanov.core.model.Filter
 import ru.ratanov.core.model.TopFilm
 import ru.ratanov.core.urls.Endpoints.FILTERS
+import ru.ratanov.core.urls.Endpoints.KP_URL
 import ru.ratanov.core.urls.Endpoints.POSTER
 import ru.ratanov.core.urls.Endpoints.TOP
+import ru.ratanov.core.urls.Endpoints.TRAILER
 import java.net.URL
 
 object FilmRepository {
@@ -20,4 +22,8 @@ object FilmRepository {
         .fromJson<List<Filter>>(URL(FILTERS).readText(), object : TypeToken<List<Filter>>() {}.type)
 
     fun getPoster(filmUrl: String): String = URL("$POSTER?filmUrl=$filmUrl").readText()
+
+    fun getKpUrl(filmUrl: String): String = URL("$KP_URL?filmUrl=$filmUrl").readText()
+
+    fun getTrailer(filmUrl: String): String = URL("$TRAILER?filmUrl=$filmUrl").readText()
 }
