@@ -60,4 +60,9 @@ dependencies {
     // Search
 //    implementation 'com.lapism:searchview:4.0'
 
+    // ExoPlayer
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.7.3'
+
 }
