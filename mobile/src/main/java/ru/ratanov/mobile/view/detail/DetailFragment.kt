@@ -51,9 +51,7 @@ class DetailFragment : BaseFragment() {
                 uiThread {
                     initializePlayer(Uri.parse(trailerUrl))
                     trailer_bg.visibility = View.INVISIBLE
-
-                    trailer_loading.visibility = View.INVISIBLE
-//                    hideLoading()
+                    hideLoading()
                 }
             }
         }
