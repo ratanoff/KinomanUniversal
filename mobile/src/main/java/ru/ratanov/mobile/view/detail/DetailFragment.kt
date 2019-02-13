@@ -12,9 +12,12 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import ru.ratanov.core.repo.FilmRepository
 import ru.ratanov.core.repo.TrailerRepository
 import ru.ratanov.mobile.R
 import ru.ratanov.mobile.view.base.BaseFragment
@@ -34,16 +37,25 @@ class DetailFragment : BaseFragment() {
         showLoading()
 //        toolbar.title = "Фильм"
 
+
+
         arguments?.getString("extra_film_url")?.let {
+            doAsync {
+                val placeholder = FilmRepository.getPoster(it)
+                uiThread {
+                    Picasso.get().load(placeholder).fit().centerCrop().into(view.trailer_bg)
+                }
+            }
+
             doAsync {
                 val trailerUrl = TrailerRepository.getTrailer(it)
                 uiThread {
                     initializePlayer(Uri.parse(trailerUrl))
+                    trailer_bg.visibility = View.INVISIBLE
+
                     hideLoading()
                 }
             }
-
-
         }
     }
 

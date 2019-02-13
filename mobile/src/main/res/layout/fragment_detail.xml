@@ -8,16 +8,25 @@
         android:orientation="vertical"
         tools:context=".view.main.TopFragment">
 
-    <!--<androidx.appcompat.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--app:layout_collapseMode="pin"-->
-            <!--app:popupTheme="@style/ThemeOverlay.AppCompat"/>-->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="202dp"
+                 android:background="@android:color/black">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/video_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="202dp"/>
+
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                   android:id="@+id/trailer_bg"/>
+
+    </FrameLayout>
+
+    <!--<androidx.appcompat.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--app:layout_collapseMode="pin"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat"/>-->
+
 
 </LinearLayout>
