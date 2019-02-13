@@ -34,9 +34,8 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading()
+//        showLoading()
 //        toolbar.title = "Фильм"
-
 
 
         arguments?.getString("extra_film_url")?.let {
@@ -53,7 +52,8 @@ class DetailFragment : BaseFragment() {
                     initializePlayer(Uri.parse(trailerUrl))
                     trailer_bg.visibility = View.INVISIBLE
 
-                    hideLoading()
+                    trailer_loading.visibility = View.INVISIBLE
+//                    hideLoading()
                 }
             }
         }

@@ -19,6 +19,9 @@
         <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
                    android:id="@+id/trailer_bg"/>
 
+        <ru.ratanov.mobile.view.ProgressWidget android:layout_width="match_parent" android:layout_height="match_parent"
+                                               android:id="@+id/trailer_loading"/>
+
     </FrameLayout>
 
     <!--<androidx.appcompat.widget.Toolbar-->
