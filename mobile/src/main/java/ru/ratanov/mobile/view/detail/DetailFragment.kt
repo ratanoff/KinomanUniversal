@@ -30,7 +30,7 @@ class DetailFragment : BaseFragment() {
     private var playbackPosition = 0L
     private var currentWindow = 0
 
-    override fun getLayout() = R.layout.fragment_detail
+    override fun getLayout() = R.layout.fragment_detail2
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
