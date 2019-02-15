@@ -4,6 +4,8 @@ package ru.ratanov.mobile.view.detail
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultRenderersFactory
 import com.google.android.exoplayer2.ExoPlayerFactory
@@ -30,12 +32,16 @@ class DetailFragment : BaseFragment() {
     private var playbackPosition = 0L
     private var currentWindow = 0
 
-    override fun getLayout() = R.layout.fragment_detail2
+    override fun getLayout() = R.layout.fragment_detail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        showLoading()
 //        toolbar.title = "Фильм"
+        toolbar.inflateMenu(R.menu.detail_top_menu)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+
 
 
         arguments?.getString("extra_film_url")?.let {
