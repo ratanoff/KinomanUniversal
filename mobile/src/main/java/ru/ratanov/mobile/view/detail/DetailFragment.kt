@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.uiThread
 import ru.ratanov.core.repo.FilmRepository
 import ru.ratanov.core.repo.TrailerRepository
@@ -36,7 +37,7 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        showLoading()
+        showLoading()
 //        toolbar.title = "Фильм"
         toolbar.inflateMenu(R.menu.detail_top_menu)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
@@ -44,22 +45,51 @@ class DetailFragment : BaseFragment() {
 
 
 
-        arguments?.getString("extra_film_url")?.let {
+        arguments?.getString("extra_film_url")?.let {filmUrl ->
+
             doAsync {
+                val film = FilmRepository.getFilm(filmUrl)
+                uiThread {
+                    Picasso.get().load(film.bigPosterUrl).fit().centerCrop().into(view.trailer_bg)
+                    Picasso.get().load(film.smallPosterUrl).into(view.poster)
+                    title.text = film.title
+                    original_title.text = film.originalTitle
+                    length.text = film.length
+
+
+                    toast("Film loaded")
+                    hideLoading()
+
+                    doAsync {
+                        val trailerUrl = TrailerRepository.getTrailer(filmUrl)
+                        uiThread {
+                            initializePlayer(Uri.parse(trailerUrl))
+                            trailer_bg.visibility = View.INVISIBLE
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+            /*doAsync {
                 val placeholder = FilmRepository.getPoster(it)
                 uiThread {
                     Picasso.get().load(placeholder).fit().centerCrop().into(view.trailer_bg)
                 }
-            }
+            }*/
 
-            doAsync {
-                val trailerUrl = TrailerRepository.getTrailer(it)
+            /*doAsync {
+                val trailerUrl = TrailerRepository.getTrailer()
                 uiThread {
                     initializePlayer(Uri.parse(trailerUrl))
                     trailer_bg.visibility = View.INVISIBLE
                     hideLoading()
                 }
-            }
+            }*/
         }
     }
 
@@ -104,7 +134,7 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun buildMediaSource(uri: Uri) =
-            ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("kinoman"))
-                .createMediaSource(uri)
+        ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("kinoman"))
+            .createMediaSource(uri)
 
 }
