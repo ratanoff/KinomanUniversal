@@ -60,12 +60,9 @@ class DetailFragment : BaseFragment() {
 
     private fun loadTrailer(film: Film) {
         val filmTitle = film.title ?: film.originalTitle ?: return
-
         doAsync {
-//            val videoId = FilmRepository.getTrailer(filmTitle)
-            val videoId = "e6b9urtUJt0"
+            val videoId = FilmRepository.getTrailer(filmTitle)
             uiThread {
-                video_view.getPlayerUiController()
                 lifecycle.addObserver(video_view)
                 video_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {

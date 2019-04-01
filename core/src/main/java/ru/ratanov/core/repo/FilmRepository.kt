@@ -1,5 +1,6 @@
 package ru.ratanov.core.repo
 
+import android.net.Uri
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import ru.ratanov.core.model.Film
@@ -29,5 +30,14 @@ object FilmRepository {
 
     fun getKpUrl(filmUrl: String): String = URL("$KP_URL?filmUrl=$filmUrl").readText()
 
-    fun getTrailer(filmTitle: String): String = URL("$TRAILER?filmTitle=$filmTitle").readText()
+    fun getTrailer(filmTitle: String): String {
+        val url = Uri.parse(TRAILER)
+            .buildUpon()
+            .appendQueryParameter("filmTitle", filmTitle)
+            .build()
+            .toString()
+
+
+        return URL(url).readText()
+    }
 }
