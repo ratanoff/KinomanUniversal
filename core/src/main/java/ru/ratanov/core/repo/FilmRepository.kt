@@ -29,5 +29,5 @@ object FilmRepository {
 
     fun getKpUrl(filmUrl: String): String = URL("$KP_URL?filmUrl=$filmUrl").readText()
 
-    fun getTrailer(filmUrl: String): String = URL("$TRAILER?filmUrl=$filmUrl").readText()
+    fun getTrailer(filmTitle: String): String = URL("$TRAILER?filmTitle=$filmTitle").readText()
 }
