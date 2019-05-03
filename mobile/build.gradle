@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-//        applicationId "ru.ratanov.mobile"
+        applicationId "ru.ratanov.mobile"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
