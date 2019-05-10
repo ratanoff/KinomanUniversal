@@ -5,9 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.res.ResourcesCompat
@@ -19,11 +17,14 @@ import ru.ratanov.core.model.Filter
 import ru.ratanov.mobile.R
 import ru.ratanov.mobile.view.collapse
 import ru.ratanov.mobile.view.expand
+import ru.ratanov.mobile.view.main.bottomsheet.FilterProducer
 
 @SuppressLint("ViewConstructor")
 class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
 
     private var expanded = false
+
+    private val producer = FilterProducer("")
 
     private val titleView = AppCompatTextView(context).apply {
         text = filter.title
@@ -51,9 +52,10 @@ class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
         orientation = VERTICAL
         visibility = View.GONE
 
+        producer.setValue(filter.params[0].value)
 
         filter.params.forEach {
-            addView(AppCompatTextView(context).apply { text = it.name; textColor = Color.GRAY })
+            addView(FilterRadioButton(context, it.value, producer, this@FilterCard::onFilterSelected))
         }
     }
 
@@ -80,5 +82,9 @@ class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
         context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
         view.isClickable = true
         view.setBackgroundResource(outValue.resourceId)
+    }
+
+    private fun onFilterSelected(value: String) {
+        producer.setValue(value)
     }
 }
