@@ -1,5 +1,6 @@
 package ru.ratanov.mobile.view
 
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
@@ -49,5 +50,12 @@ fun View.collapse() {
     }
 
     this.startAnimation(animation)
+}
+
+fun View.addRipple() {
+    val outValue = TypedValue()
+    context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
+    this.isClickable = true
+    this.setBackgroundResource(outValue.resourceId)
 }
 

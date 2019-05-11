@@ -16,6 +16,7 @@ import org.jetbrains.anko.sp
 import org.jetbrains.anko.textColor
 import ru.ratanov.core.model.Filter
 import ru.ratanov.mobile.R
+import ru.ratanov.mobile.view.addRipple
 import ru.ratanov.mobile.view.collapse
 import ru.ratanov.mobile.view.expand
 import ru.ratanov.mobile.view.main.bottomsheet.FilterProducer
@@ -50,13 +51,17 @@ class FilterCard(
     private val titleContainer = RelativeLayout(context).apply {
         addView(titleView)
         addView(expandIcon)
+        padding = dip(16)
+        setOnClickListener { toggleExpand() }
+        addRipple()
     }
 
     private val contentView = LinearLayout(context).apply {
         orientation = VERTICAL
         visibility = View.GONE
+        setPadding(dip(16), 0, dip(16), dip(16))
 
-        producer.setValue(filter.params[0].value)
+        producer.setValue(filter.params[0].name)
 
         filter.params.forEach {
             addView(FilterRadioButton(context, it.name, producer, this@FilterCard::onFilterSelected))
@@ -65,16 +70,11 @@ class FilterCard(
 
     init {
         orientation = VERTICAL
-        padding = dip(16)
 
         addView(titleContainer)
         addView(contentView)
 
-        addRipple(this)
-        setOnClickListener { toggleExpand() }
-
         collapsingProducer.attach { selectedCard ->
-            Log.d("FilterCard", "${filter.title} -> $expanded")
             if (selectedCard != filter.key) {
                 expanded = false
                 contentView.collapse()
@@ -91,13 +91,6 @@ class FilterCard(
         expandIcon.isActivated = expanded
 
         if (expanded) onCollapsing.invoke(filter.key)
-    }
-
-    private fun addRipple(view: View) {
-        val outValue = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
-        view.isClickable = true
-        view.setBackgroundResource(outValue.resourceId)
     }
 
     private fun onFilterSelected(value: String) {
