@@ -50,8 +50,6 @@ class FilterCard(
     private val titleContainer = RelativeLayout(context).apply {
         addView(titleView)
         addView(expandIcon)
-        addRipple(this)
-        setOnClickListener { toggleExpand() }
     }
 
     private val contentView = LinearLayout(context).apply {
@@ -61,17 +59,19 @@ class FilterCard(
         producer.setValue(filter.params[0].value)
 
         filter.params.forEach {
-            addView(FilterRadioButton(context, it.value, producer, this@FilterCard::onFilterSelected))
+            addView(FilterRadioButton(context, it.name, producer, this@FilterCard::onFilterSelected))
         }
     }
 
     init {
-
         orientation = VERTICAL
         padding = dip(16)
 
         addView(titleContainer)
         addView(contentView)
+
+        addRipple(this)
+        setOnClickListener { toggleExpand() }
 
         collapsingProducer.attach { selectedCard ->
             Log.d("FilterCard", "${filter.title} -> $expanded")
