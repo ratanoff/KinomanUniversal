@@ -3,6 +3,7 @@ package ru.ratanov.mobile.widget
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.*
@@ -20,7 +21,12 @@ import ru.ratanov.mobile.view.expand
 import ru.ratanov.mobile.view.main.bottomsheet.FilterProducer
 
 @SuppressLint("ViewConstructor")
-class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
+class FilterCard(
+    context: Context,
+    private val filter: Filter,
+    collapsingProducer: FilterProducer,
+    private val onCollapsing: (String) -> Unit
+) : LinearLayout(context) {
 
     private var expanded = false
 
@@ -67,6 +73,15 @@ class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
         addView(titleContainer)
         addView(contentView)
 
+        collapsingProducer.attach { selectedCard ->
+            Log.d("FilterCard", "${filter.title} -> $expanded")
+            if (selectedCard != filter.key) {
+                expanded = false
+                contentView.collapse()
+                expandIcon.animate().rotation(0f).duration = 200
+                expandIcon.isActivated = expanded
+            }
+        }
     }
 
     private fun toggleExpand() {
@@ -75,6 +90,7 @@ class FilterCard(context: Context, filter: Filter) : LinearLayout(context) {
         expandIcon.animate().rotation(if (expanded) 180f else 0f).duration = 200
         expandIcon.isActivated = expanded
 
+        if (expanded) onCollapsing.invoke(filter.key)
     }
 
     private fun addRipple(view: View) {

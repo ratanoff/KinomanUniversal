@@ -5,10 +5,7 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import ru.ratanov.core.model.Filter
-import ru.ratanov.core.repo.FilmRepository
 import ru.ratanov.mobile.widget.FilterCard
 
 @SuppressLint("ViewConstructor")
@@ -17,12 +14,14 @@ class FilterFragmentView(
     initFilters: List<Filter>
 ) : ScrollView(context) {
 
+    private val collapsingProducer = FilterProducer("")
+
     private val contentView = LinearLayout(context).apply {
         orientation = LinearLayout.VERTICAL
 
         initFilters.forEach {
             addView(
-                FilterCard(context, it)
+                FilterCard(context, it, collapsingProducer, this@FilterFragmentView::onCollapsed)
             )
         }
     }
@@ -32,4 +31,8 @@ class FilterFragmentView(
         addView(contentView)
     }
 
+
+    private fun onCollapsed(card: String) {
+        collapsingProducer.setValue(card)
+    }
 }
