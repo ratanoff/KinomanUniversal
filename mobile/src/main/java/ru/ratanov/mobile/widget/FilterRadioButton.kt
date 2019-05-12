@@ -14,15 +14,17 @@ import androidx.appcompat.widget.AppCompatTextView
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.padding
 import org.jetbrains.anko.textColor
+import ru.ratanov.core.model.Param
 import ru.ratanov.mobile.view.addRipple
 import ru.ratanov.mobile.view.main.bottomsheet.FilterProducer
+import ru.ratanov.mobile.view.main.bottomsheet.ParamsProducer
 
 @SuppressLint("ViewConstructor")
 class FilterRadioButton(
     context: Context,
-    private val valueName: String,
-    producer: FilterProducer,
-    private val onFilterSelected: (String) -> Unit
+    private val param: Param,
+    producer: ParamsProducer,
+    private val onFilterSelected: (Param) -> Unit
 ) : LinearLayout(context) {
 
     var active: Boolean = false
@@ -34,16 +36,16 @@ class FilterRadioButton(
         }
 
     private val valueView = AppCompatTextView(context).apply {
-        text = valueName
+        text = param.name
         textColor = Color.BLACK
         padding = dip(8)
         addRipple()
-        setOnClickListener { onFilterSelected.invoke(this@FilterRadioButton.valueName) }
+        setOnClickListener { onFilterSelected.invoke(this@FilterRadioButton.param) }
     }
 
     private val checkView = CheckBox(context).apply {
         setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) onFilterSelected.invoke(this@FilterRadioButton.valueName)
+            if (isChecked) onFilterSelected.invoke(this@FilterRadioButton.param)
         }
     }
 
@@ -53,7 +55,7 @@ class FilterRadioButton(
         addView(valueView)
 
         producer.attach { selectedValue ->
-            active = selectedValue == valueName
+            active = selectedValue == param
         }
     }
 

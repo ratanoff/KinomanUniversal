@@ -15,12 +15,14 @@ import org.jetbrains.anko.padding
 import org.jetbrains.anko.sp
 import org.jetbrains.anko.textColor
 import ru.ratanov.core.model.Filter
+import ru.ratanov.core.model.Param
 import ru.ratanov.mobile.R
 import ru.ratanov.mobile.prefs.TabsSettingsHolder
 import ru.ratanov.mobile.view.addRipple
 import ru.ratanov.mobile.view.collapse
 import ru.ratanov.mobile.view.expand
 import ru.ratanov.mobile.view.main.bottomsheet.FilterProducer
+import ru.ratanov.mobile.view.main.bottomsheet.ParamsProducer
 
 @SuppressLint("ViewConstructor")
 class FilterCard(
@@ -32,7 +34,7 @@ class FilterCard(
 
     private var expanded = false
 
-    private val producer = FilterProducer("")
+    private val producer = ParamsProducer(Param("0", "0"))
 
     private val titleView = AppCompatTextView(context).apply {
         id = View.generateViewId()
@@ -74,11 +76,11 @@ class FilterCard(
         visibility = View.GONE
         setPadding(dip(16), 0, dip(16), dip(16))
 
-        producer.setValue(filter.params[0].name)
+        producer.setValue(filter.params[0])
         valueView.text = filter.params[0].name
 
         filter.params.forEach {
-            addView(FilterRadioButton(context, it.name, producer, this@FilterCard::onFilterSelected))
+            addView(FilterRadioButton(context, it, producer, this@FilterCard::onFilterSelected))
         }
     }
 
@@ -107,10 +109,10 @@ class FilterCard(
         if (expanded) onCollapsing.invoke(filter.key)
     }
 
-    private fun onFilterSelected(value: String) {
+    private fun onFilterSelected(value: Param) {
         Log.d("Filter", "$value selected") //todo check why twice invoked?
         producer.setValue(value)
-        valueView.text = value
-        TabsSettingsHolder.set(filter.key, value)
+        valueView.text = value.name
+        TabsSettingsHolder.set(filter.key, value.value)
     }
 }
