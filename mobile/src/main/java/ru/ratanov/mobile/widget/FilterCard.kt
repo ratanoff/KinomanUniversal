@@ -16,6 +16,7 @@ import org.jetbrains.anko.sp
 import org.jetbrains.anko.textColor
 import ru.ratanov.core.model.Filter
 import ru.ratanov.mobile.R
+import ru.ratanov.mobile.prefs.TabsSettingsHolder
 import ru.ratanov.mobile.view.addRipple
 import ru.ratanov.mobile.view.collapse
 import ru.ratanov.mobile.view.expand
@@ -34,10 +35,21 @@ class FilterCard(
     private val producer = FilterProducer("")
 
     private val titleView = AppCompatTextView(context).apply {
-        text = filter.title
+        id = View.generateViewId()
+        text = "${filter.title}: "
         textSize = sp(8).toFloat()
         textColor = Color.BLACK
         typeface = ResourcesCompat.getFont(context, R.font.google_sans)
+    }
+
+    private val valueView = AppCompatTextView(context).apply {
+        textSize = sp(8).toFloat()
+        textColor = Color.BLUE
+        typeface = ResourcesCompat.getFont(context, R.font.google_sans)
+
+        layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+            addRule(RelativeLayout.RIGHT_OF, titleView.id)
+        }
     }
 
     private val expandIcon = ImageView(context).apply {
@@ -50,6 +62,7 @@ class FilterCard(
 
     private val titleContainer = RelativeLayout(context).apply {
         addView(titleView)
+        addView(valueView)
         addView(expandIcon)
         padding = dip(16)
         setOnClickListener { toggleExpand() }
@@ -62,6 +75,7 @@ class FilterCard(
         setPadding(dip(16), 0, dip(16), dip(16))
 
         producer.setValue(filter.params[0].name)
+        valueView.text = filter.params[0].name
 
         filter.params.forEach {
             addView(FilterRadioButton(context, it.name, producer, this@FilterCard::onFilterSelected))
@@ -94,6 +108,9 @@ class FilterCard(
     }
 
     private fun onFilterSelected(value: String) {
+        Log.d("Filter", "$value selected") //todo check why twice invoked?
         producer.setValue(value)
+        valueView.text = value
+        TabsSettingsHolder.set(filter.key, value)
     }
 }

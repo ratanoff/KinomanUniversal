@@ -35,6 +35,7 @@ class FilterRadioButton(
 
     private val valueView = AppCompatTextView(context).apply {
         text = valueName
+        textColor = Color.BLACK
         padding = dip(8)
         addRipple()
         setOnClickListener { onFilterSelected.invoke(this@FilterRadioButton.valueName) }

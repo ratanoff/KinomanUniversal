@@ -1,6 +1,7 @@
 package ru.ratanov.mobile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,7 +11,9 @@ import androidx.navigation.NavHost
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_mobile.*
+import kotlinx.android.synthetic.main.fragment_tabs.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
@@ -71,7 +74,8 @@ class MobileActivity : AppCompatActivity(), NavHost {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_filter -> {
-                val filterFragment = FilterFragment.newInstance(filters)
+                val page = tabLayout.selectedTabPosition
+                val filterFragment = FilterFragment.newInstance(filters, page)
                 filterFragment.show(supportFragmentManager, filterFragment.tag)
             }
 
