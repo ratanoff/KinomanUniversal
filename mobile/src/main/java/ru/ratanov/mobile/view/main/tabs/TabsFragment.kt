@@ -22,9 +22,9 @@ class TabsFragment : Fragment() {
 
         viewPager.offscreenPageLimit = 2
         viewPager.adapter = FilmPagerAdapter(childFragmentManager).apply {
-            addFragment(TopFragment(), "Films")
-            addFragment(TopFragment(), "Serials")
-            addFragment(TopFragment(), "Mults")
+            addFragment(TopFragment.newInstance("0"), "Films")
+            addFragment(TopFragment.newInstance("1"), "Serials")
+            addFragment(TopFragment.newInstance("2"), "Mults")
         }
         tabLayout.setupWithViewPager(viewPager)
     }
