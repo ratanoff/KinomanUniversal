@@ -68,7 +68,7 @@ class TopFragment : BaseFragment(), TopPosterClickListener {
     override fun onTopPosterClick(posterUrl: String, sharedImageView: ImageView) {
         findNavController().navigate(
             R.id.action_topFragment_to_detailFragment,
-            bundleOf(arrayOf<Pair<String, Any?>>("extra_poster_url" to posterUrl))
+            bundleOf("extra_poster_url" to posterUrl)
         )
     }
 
